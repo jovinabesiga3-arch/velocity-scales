@@ -92,14 +92,27 @@
 
   if (contactForm instanceof HTMLFormElement && formFeedback) {
     const nameInput = document.getElementById("contact-name");
+    const whatsappInput = document.getElementById("contact-whatsapp");
     const businessInput = document.getElementById("contact-business");
-    const phoneInput = document.getElementById("contact-phone");
+    const businessTypeSelect = document.getElementById("contact-business-type");
+    const challengeSelect = document.getElementById("contact-challenge");
+    const budgetSelect = document.getElementById("contact-budget");
+    const authoritySelect = document.getElementById("contact-authority");
+    const timelineSelect = document.getElementById("contact-timeline");
     const submitBtn = document.getElementById("contact-submit");
 
-    const setFieldError = (input, errorId, message) => {
+    const selectFields = [
+      { el: businessTypeSelect, errorId: "error-business-type", msg: "Please select your business type." },
+      { el: challengeSelect, errorId: "error-challenge", msg: "Please select your main challenge." },
+      { el: budgetSelect, errorId: "error-budget", msg: "Please select your monthly ad budget." },
+      { el: authoritySelect, errorId: "error-authority", msg: "Please let us know if you are the decision maker." },
+      { el: timelineSelect, errorId: "error-timeline", msg: "Please select when you want to start." },
+    ];
+
+    const setFieldError = (field, errorId, message) => {
       const errorEl = document.getElementById(errorId);
-      if (input) {
-        input.setAttribute("aria-invalid", message ? "true" : "false");
+      if (field) {
+        field.setAttribute("aria-invalid", message ? "true" : "false");
       }
       if (errorEl) {
         errorEl.textContent = message;
@@ -125,6 +138,16 @@
         }
       }
 
+      if (whatsappInput instanceof HTMLInputElement) {
+        const digits = whatsappInput.value.replace(/\D/g, "");
+        if (digits.length < 7) {
+          setFieldError(whatsappInput, "error-whatsapp", "Please enter a valid WhatsApp number.");
+          valid = false;
+        } else {
+          setFieldError(whatsappInput, "error-whatsapp", "");
+        }
+      }
+
       if (businessInput instanceof HTMLInputElement) {
         if (businessInput.value.trim().length < 2) {
           setFieldError(businessInput, "error-business", "Please enter your business name.");
@@ -134,23 +157,34 @@
         }
       }
 
-      if (phoneInput instanceof HTMLInputElement) {
-        const digits = phoneInput.value.replace(/\D/g, "");
-        if (digits.length < 7) {
-          setFieldError(phoneInput, "error-phone", "Please enter a valid WhatsApp or phone number.");
-          valid = false;
-        } else {
-          setFieldError(phoneInput, "error-phone", "");
+      selectFields.forEach(({ el, errorId, msg }) => {
+        if (el instanceof HTMLSelectElement) {
+          if (!el.value) {
+            setFieldError(el, errorId, msg);
+            valid = false;
+          } else {
+            setFieldError(el, errorId, "");
+          }
         }
-      }
+      });
 
       return valid;
     };
 
-    [nameInput, businessInput, phoneInput].forEach((input) => {
+    [nameInput, whatsappInput, businessInput].forEach((input) => {
       if (input instanceof HTMLInputElement) {
         input.addEventListener("input", () => {
           if (input.getAttribute("aria-invalid") === "true") {
+            validateForm();
+          }
+        });
+      }
+    });
+
+    selectFields.forEach(({ el }) => {
+      if (el instanceof HTMLSelectElement) {
+        el.addEventListener("change", () => {
+          if (el.getAttribute("aria-invalid") === "true") {
             validateForm();
           }
         });
@@ -162,13 +196,17 @@
       formFeedback.hidden = true;
 
       if (!validateForm()) {
+        const firstInvalid = contactForm.querySelector('[aria-invalid="true"]');
+        if (firstInvalid instanceof HTMLElement) {
+          firstInvalid.focus();
+        }
         return;
       }
 
-      const originalLabel = submitBtn ? submitBtn.textContent : "Request a Callback";
+      const originalLabel = submitBtn ? submitBtn.textContent : "Get My Free Strategy Plan";
       if (submitBtn instanceof HTMLButtonElement) {
         submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
+        submitBtn.textContent = "Submitting...";
       }
 
       try {
@@ -193,17 +231,17 @@
         contactForm.reset();
         showFeedback(
           "success",
-          "Thanks! Your details have been sent. Expect a message from Velocity Scales shortly, or tap WhatsApp for an immediate reply."
+          "Application received! We are reviewing your business details and will message you on WhatsApp shortly to confirm your free strategy call."
         );
       } catch (_err) {
         showFeedback(
           "error",
-          "We could not submit the form from this preview environment. For instant help, tap the WhatsApp button to message us directly."
+          "We could not submit the form from this preview environment. For an instant reply, tap the WhatsApp button to message us directly."
         );
       } finally {
         if (submitBtn instanceof HTMLButtonElement) {
           submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel || "Request a Callback";
+          submitBtn.textContent = originalLabel || "Get My Free Strategy Plan";
         }
       }
     });

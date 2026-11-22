@@ -602,17 +602,23 @@
         </div>
       </section>
 
-      <!-- 8. Final CTA & Netlify Contact Form -->
+      <!-- 8. Final CTA & Qualifying Lead Form (Netlify Forms) -->
       <section id="contact" class="section">
         <div class="container cta-layout">
           <div class="cta-box reveal">
             <div>
-              <p class="section-kicker">Start Today</p>
+              <p class="section-kicker">Free Strategy Review</p>
               <h2 class="cta-title">Ready to get more clients?</h2>
               <p class="cta-copy">
-                Message us directly on WhatsApp to book your free strategy call. Tell us about your business,
-                and we will outline how Meta Ads can fill your calendar.
+                Tell us a bit about your business and goals using the quick form, or message us directly on
+                WhatsApp so we can prepare a custom Meta Ads plan for your calendar.
               </p>
+
+              <ul class="cta-benefits">
+                <li>Custom Facebook &amp; Instagram ad angles built for your offer</li>
+                <li>Realistic UGX ad-budget &amp; expected lead-flow breakdown</li>
+                <li>Direct WhatsApp funnel blueprint—zero obligation</li>
+              </ul>
 
               <a
                 href="https://wa.me/256704797614?text=Hi%20Velocity%20Scales%2C%20I%20want%20more%20clients%20with%20Meta%20ads"
@@ -625,7 +631,7 @@
                     d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.79 14.07c-.24.68-1.42 1.3-1.97 1.38-.51.07-1.15.1-1.85-.12-.43-.14-.98-.32-1.69-.63-2.98-1.29-4.92-4.31-5.07-4.51-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.18 1.03-2.48.27-.3.59-.38.79-.38.2 0 .39.01.56.01.18.01.42-.07.66.5.24.59.83 2.02.9 2.17.07.15.12.33.02.53-.1.2-.15.33-.3.51-.15.18-.32.4-.45.54-.15.15-.31.31-.13.61.18.3.8 1.32 1.72 2.14 1.18 1.05 2.17 1.38 2.47 1.53.3.15.48.13.66-.08.18-.2.76-.88.96-1.18.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.34.07.12.07.69-.17 1.37z"
                   />
                 </svg>
-                <span>Message Velocity Scales on WhatsApp</span>
+                <span>Or Chat Directly on WhatsApp</span>
               </a>
             </div>
 
@@ -635,8 +641,10 @@
           </div>
 
           <div class="form-card reveal">
-            <h3 class="form-title">Or request a callback</h3>
-            <p class="form-subtitle">Leave your details and we will reach out to schedule your free call.</p>
+            <h3 class="form-title">Get Your Custom Client-Growth Plan</h3>
+            <p class="form-subtitle">
+              Answer 6 quick questions (takes under 45 seconds) so we can tailor your free strategy call.
+            </p>
 
             <form
               id="contact-form"
@@ -651,51 +659,124 @@
                 <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
               </p>
 
-              <div class="form-group">
-                <label class="form-label" for="contact-name">Your Name</label>
-                <input
-                  class="form-input"
-                  id="contact-name"
-                  name="name"
-                  type="text"
-                  placeholder="e.g., Sarah Namukasa"
-                  autocomplete="name"
-                  required
-                />
-                <p class="field-error" id="error-name" hidden></p>
+              <!-- 1. Name and WhatsApp number -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-name">Your Name</label>
+                  <input
+                    class="form-input"
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    placeholder="e.g., Sarah Namukasa"
+                    autocomplete="name"
+                    required
+                  />
+                  <p class="field-error" id="error-name" hidden></p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-whatsapp">WhatsApp Number</label>
+                  <input
+                    class="form-input"
+                    id="contact-whatsapp"
+                    name="whatsapp"
+                    type="tel"
+                    placeholder="e.g., +256 700 000 000"
+                    autocomplete="tel"
+                    required
+                  />
+                  <p class="field-error" id="error-whatsapp" hidden></p>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label class="form-label" for="contact-business">Business Name</label>
-                <input
-                  class="form-input"
-                  id="contact-business"
-                  name="business"
-                  type="text"
-                  placeholder="e.g., Lakefront Bistro Entebbe"
-                  autocomplete="organization"
-                  required
-                />
-                <p class="field-error" id="error-business" hidden></p>
+              <!-- 2. Business name and type -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-business">Business Name</label>
+                  <input
+                    class="form-input"
+                    id="contact-business"
+                    name="business"
+                    type="text"
+                    placeholder="e.g., Lakefront Bistro Entebbe"
+                    autocomplete="organization"
+                    required
+                  />
+                  <p class="field-error" id="error-business" hidden></p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-business-type">Business Type</label>
+                  <select class="form-select" id="contact-business-type" name="business_type" required>
+                    <option value="" disabled selected>Select business type...</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Salon">Salon</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="field-error" id="error-business-type" hidden></p>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label class="form-label" for="contact-phone">Phone / WhatsApp Number</label>
-                <input
-                  class="form-input"
-                  id="contact-phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="e.g., +256 700 000 000"
-                  autocomplete="tel"
-                  required
-                />
-                <p class="field-error" id="error-phone" hidden></p>
+              <!-- 3. Biggest challenge & 4. Monthly budget -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-challenge">What’s your biggest challenge right now?</label>
+                  <select class="form-select" id="contact-challenge" name="biggest_challenge" required>
+                    <option value="" disabled selected>Select main challenge...</option>
+                    <option value="Not enough customers">Not enough customers</option>
+                    <option value="No online presence">No online presence</option>
+                    <option value="Ads not working">Ads not working</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="field-error" id="error-challenge" hidden></p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-budget">What’s your monthly budget for ads?</label>
+                  <select class="form-select" id="contact-budget" name="monthly_budget" required>
+                    <option value="" disabled selected>Select monthly budget...</option>
+                    <option value="Under UGX 300k">Under UGX 300k</option>
+                    <option value="UGX 300k - 1M">UGX 300k – 1M</option>
+                    <option value="UGX 1M - 3M">UGX 1M – 3M</option>
+                    <option value="UGX 3M+">UGX 3M+</option>
+                  </select>
+                  <p class="field-error" id="error-budget" hidden></p>
+                </div>
+              </div>
+
+              <!-- 5. Decision maker & 6. Start timeline -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-authority">Are you the owner or decision maker?</label>
+                  <select class="form-select" id="contact-authority" name="decision_maker" required>
+                    <option value="" disabled selected>Select an option...</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No / I'd need to check with someone">No / I'd need to check with someone</option>
+                  </select>
+                  <p class="field-error" id="error-authority" hidden></p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-timeline">When do you want to start?</label>
+                  <select class="form-select" id="contact-timeline" name="start_timeline" required>
+                    <option value="" disabled selected>Select timeline...</option>
+                    <option value="This week">This week</option>
+                    <option value="This month">This month</option>
+                    <option value="Just exploring">Just exploring</option>
+                  </select>
+                  <p class="field-error" id="error-timeline" hidden></p>
+                </div>
               </div>
 
               <button id="contact-submit" type="submit" class="btn btn--primary btn--lg btn--full">
-                Request a Callback
+                Get My Free Strategy Plan
               </button>
+
+              <p class="form-note">
+                We review every application personally and reply via WhatsApp within 24 hours.
+              </p>
 
               <div id="form-feedback" class="form-feedback" role="status" aria-live="polite" hidden></div>
             </form>
