@@ -5,13 +5,13 @@
 
 :root {
   --bg-canvas: #0b1120;
-  --bg-surface: #111a2e;
-  --bg-surface-elevated: #16223b;
-  --border-subtle: rgba(148, 163, 184, 0.16);
-  --border-strong: rgba(34, 211, 238, 0.35);
+  --bg-surface: #0f172a;
+  --bg-surface-elevated: #142038;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(34, 211, 238, 0.4);
 
   --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
+  --text-secondary: #d1d9e6;
   --text-muted: #94a3b8;
 
   --accent-blue: #2563eb;
@@ -165,10 +165,10 @@ select {
 
 .section-title {
   margin: 0 0 14px;
-  font-size: clamp(1.625rem, 3.2vw, 2.35rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   color: #ffffff;
   text-wrap: balance;
 }
@@ -212,7 +212,8 @@ select {
 .btn--whatsapp {
   background-color: var(--whatsapp-bg);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 22px rgba(0, 0, 0, 0.28);
 }
 
 .btn--whatsapp:hover {
@@ -223,7 +224,8 @@ select {
 .btn--primary {
   background: linear-gradient(135deg, var(--accent-blue) 0%, #1d4ed8 100%);
   color: #ffffff;
-  border-color: rgba(34, 211, 238, 0.25);
+  border-color: rgba(34, 211, 238, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 22px rgba(37, 99, 235, 0.25);
 }
 
 .btn--primary:hover {
@@ -462,10 +464,10 @@ select {
 
 .hero-title {
   margin: 0 0 20px;
-  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.35rem, 4.8vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   color: #ffffff;
   text-wrap: balance;
 }
@@ -507,10 +509,11 @@ select {
 
 /* Hero Funnel Visual Panel (Pure CSS + Inline SVG, Zero Heavy Images) */
 .hero-panel {
-  background: linear-gradient(160deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  background: linear-gradient(165deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 20px 44px rgba(0, 0, 0, 0.35);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -666,8 +669,9 @@ select {
 .card {
   background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
-  padding: 26px;
+  padding: 28px;
   transition: border-color 180ms ease, transform 200ms var(--ease-out-expo);
 }
 
@@ -752,8 +756,9 @@ select {
 }
 
 .service-list li::before {
-  content: "—";
+  content: "✓";
   color: var(--accent-cyan);
+  font-weight: 700;
   flex-shrink: 0;
 }
 
@@ -863,8 +868,9 @@ select {
 }
 
 .cta-box {
-  background: linear-gradient(155deg, rgba(37, 99, 235, 0.22) 0%, rgba(17, 26, 46, 0.95) 65%);
-  border: 1px solid rgba(34, 211, 238, 0.28);
+  background: linear-gradient(155deg, rgba(37, 99, 235, 0.2) 0%, rgba(15, 23, 42, 0.96) 65%);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 44px rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-lg);
   padding: 32px 26px;
   display: flex;
@@ -882,9 +888,9 @@ select {
 .cta-title {
   margin: 0 0 14px;
   font-size: clamp(1.75rem, 3.4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   color: #ffffff;
   text-wrap: balance;
 }
@@ -929,8 +935,9 @@ select {
 
 /* Netlify Contact Form */
 .form-card {
-  background-color: var(--bg-surface);
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 44px rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-lg);
   padding: 32px 26px;
 }
