@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#0B1120" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" stroke="#2563EB" stroke-opacity="0.4" stroke-width="2" />
+  <g transform="translate(8, 12) scale(0.75)">
+    <defs>
+      <linearGradient id="vs-left" x1="6" y1="4" x2="30" y2="48" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#38BDF8" />
+        <stop offset="100%" stop-color="#0284C7" />
+      </linearGradient>
+      <linearGradient id="vs-right" x1="58" y1="4" x2="28" y2="56" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#2563EB" />
+        <stop offset="65%" stop-color="#1D4ED8" />
+        <stop offset="100%" stop-color="#1E3A8A" />
+      </linearGradient>
+    </defs>
+    <!-- Left arm -->
+    <path d="M4 6C4 4.9 4.9 4 6 4H21.5L32 28L24.5 41L4.4 7.5C4.1 7 4 6.5 4 6Z" fill="url(#vs-left)" />
+    <!-- Left inner light facet -->
+    <path d="M21.5 4L32 28L25.5 29.5L15 16L21.5 4Z" fill="#60A5FA" fill-opacity="0.35" />
+    <!-- Right arm overlapping -->
+    <path d="M42.5 4H58C59.1 4 60 4.9 60 6C60 6.5 59.9 7 59.6 7.5L36.8 52.2C36 53.6 34.6 54.4 33 54.4H28.5C26.9 54.4 25.5 53.5 24.8 52.1L22.5 47.5L42.5 4Z" fill="url(#vs-right)" />
+    <!-- Dark navy-blue bottom facet -->
+    <path d="M29.2 31.5L36.2 44.5L33 54.4H28.5C26.9 54.4 25.5 53.5 24.8 52.1L22.5 47.5L29.2 31.5Z" fill="#172554" fill-opacity="0.72" />
+    <!-- Subtle geometric notch accent -->
+    <path d="M27.8 29.2L30.8 32.8L25.8 40.5L23.8 37.8L25.2 35.6L23.5 34.4L27.8 29.2Z" fill="#E0F2FE" />
+  </g>
+</svg>
