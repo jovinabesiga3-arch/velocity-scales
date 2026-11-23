@@ -1,6 +1,6 @@
 {
   "name": "Velocity Scales",
-  "description": "Mobile-first landing page for Velocity Scales, a Meta Ads performance marketing agency based in Entebbe, Uganda.",
+  "description": "Mobile-first landing page for Velocity Scales, a performance marketing agency based in Uganda serving businesses in Uganda and abroad.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
