@@ -784,6 +784,93 @@ select {
 }
 
 /* ==========================================================================
+   About Us / Agency Profile
+   ========================================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1.12fr 0.88fr;
+    gap: 48px;
+  }
+}
+
+.about-story {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-copy {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+.about-copy--strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.about-actions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.about-pillars {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about-pillars-title {
+  margin-bottom: 18px;
+}
+
+.pillar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pillar-item {
+  padding-block: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pillar-item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.pillar-item:last-child {
+  padding-bottom: 0;
+}
+
+.pillar-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.pillar-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
    7. FAQ Accordion
    ========================================================================== */
 .faq-list {
