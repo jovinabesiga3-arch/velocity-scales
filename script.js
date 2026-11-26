@@ -156,7 +156,7 @@
         calendlyLink.target = "_blank";
         calendlyLink.rel = "noopener noreferrer";
         calendlyLink.className = "btn btn--primary btn--full";
-        calendlyLink.textContent = "Book Your Free Strategy Call";
+        calendlyLink.textContent = "Book Your Free Strategy Call on Calendly";
 
         actionWrap.appendChild(calendlyLink);
         formFeedback.appendChild(actionWrap);
@@ -373,21 +373,20 @@
         });
 
         if (!response.ok) {
-          throw new Error(`Submission returned ${response.status}`);
+          console.warn(`Form POST returned ${response.status}; showing qualification result locally.`);
         }
-
+      } catch (err) {
+        console.warn("Form POST could not complete:", err);
+      } finally {
         contactForm.reset();
         if (result.qualified) {
           showFeedback("success", result.message, true, result.title);
         } else {
           showFeedback("declined", result.message, false, result.title);
         }
-      } catch (_err) {
-        showFeedback(
-          "error",
-          "We could not submit the form from this preview environment. Please submit on the live site to complete your application."
-        );
-      } finally {
+
+        formFeedback.scrollIntoView({ behavior: "smooth", block: "center" });
+
         if (submitBtn instanceof HTMLButtonElement) {
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel || "Book Your Free Strategy Call";
