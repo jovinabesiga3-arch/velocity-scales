@@ -215,78 +215,109 @@
       };
     };
 
-    const validateForm = () => {
-      let valid = true;
+    const validateTextField = (input) => {
+      if (!(input instanceof HTMLInputElement)) return true;
 
-      if (nameInput instanceof HTMLInputElement) {
-        if (nameInput.value.trim().length < 2) {
-          setFieldError(nameInput, "error-name", "Please enter your name.");
-          valid = false;
-        } else {
-          setFieldError(nameInput, "error-name", "");
+      if (input === nameInput) {
+        if (input.value.trim().length < 2) {
+          setFieldError(input, "error-name", "Please enter your name.");
+          return false;
         }
+        setFieldError(input, "error-name", "");
+        return true;
       }
 
-      if (emailInput instanceof HTMLInputElement) {
-        const emailValue = emailInput.value.trim();
+      if (input === emailInput) {
+        const emailValue = input.value.trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(emailValue)) {
-          setFieldError(emailInput, "error-email", "Please enter a valid email address.");
-          valid = false;
-        } else {
-          setFieldError(emailInput, "error-email", "");
+          setFieldError(input, "error-email", "Please enter a valid email address.");
+          return false;
         }
+        setFieldError(input, "error-email", "");
+        return true;
       }
 
-      if (whatsappInput instanceof HTMLInputElement) {
-        const digits = whatsappInput.value.replace(/\D/g, "");
+      if (input === whatsappInput) {
+        const digits = input.value.replace(/\D/g, "");
         if (digits.length < 7) {
-          setFieldError(whatsappInput, "error-whatsapp", "Please enter a valid WhatsApp number.");
-          valid = false;
-        } else {
-          setFieldError(whatsappInput, "error-whatsapp", "");
+          setFieldError(input, "error-whatsapp", "Please enter a valid WhatsApp number.");
+          return false;
         }
+        setFieldError(input, "error-whatsapp", "");
+        return true;
       }
 
-      if (businessInput instanceof HTMLInputElement) {
-        if (businessInput.value.trim().length < 2) {
-          setFieldError(businessInput, "error-business", "Please enter your business name.");
-          valid = false;
-        } else {
-          setFieldError(businessInput, "error-business", "");
+      if (input === businessInput) {
+        if (input.value.trim().length < 2) {
+          setFieldError(input, "error-business", "Please enter your business name.");
+          return false;
         }
+        setFieldError(input, "error-business", "");
+        return true;
       }
 
-      selectFields.forEach(({ el, errorId, msg }) => {
-        if (el instanceof HTMLSelectElement) {
-          if (!el.value) {
-            setFieldError(el, errorId, msg);
-            valid = false;
-          } else {
-            setFieldError(el, errorId, "");
-          }
+      return true;
+    };
+
+    const validateSelectField = ({ el, errorId, msg }) => {
+      if (!(el instanceof HTMLSelectElement)) return true;
+      if (!el.value) {
+        setFieldError(el, errorId, msg);
+        return false;
+      }
+      setFieldError(el, errorId, "");
+      return true;
+    };
+
+    const validateForm = () => {
+      let missingCount = 0;
+
+      [nameInput, emailInput, whatsappInput, businessInput].forEach((input) => {
+        if (!validateTextField(input)) {
+          missingCount += 1;
         }
       });
 
-      return valid;
+      selectFields.forEach((fieldObj) => {
+        if (!validateSelectField(fieldObj)) {
+          missingCount += 1;
+        }
+      });
+
+      const requiredFields = contactForm.querySelectorAll("[required]");
+      requiredFields.forEach((field) => {
+        if (
+          (field instanceof HTMLInputElement || field instanceof HTMLSelectElement) &&
+          !field.value.trim() &&
+          field.getAttribute("aria-invalid") !== "true"
+        ) {
+          field.setAttribute("aria-invalid", "true");
+          missingCount += 1;
+        }
+      });
+
+      return {
+        valid: missingCount === 0,
+        missingCount,
+      };
     };
 
     [nameInput, emailInput, whatsappInput, businessInput].forEach((input) => {
       if (input instanceof HTMLInputElement) {
         input.addEventListener("input", () => {
           if (input.getAttribute("aria-invalid") === "true") {
-            validateForm();
+            validateTextField(input);
           }
         });
       }
     });
 
-    selectFields.forEach(({ el }) => {
+    selectFields.forEach((fieldObj) => {
+      const { el } = fieldObj;
       if (el instanceof HTMLSelectElement) {
         el.addEventListener("change", () => {
-          if (el.getAttribute("aria-invalid") === "true") {
-            validateForm();
-          }
+          validateSelectField(fieldObj);
         });
       }
     });
@@ -295,10 +326,19 @@
       event.preventDefault();
       formFeedback.hidden = true;
 
-      if (!validateForm()) {
+      const validation = validateForm();
+      if (!validation.valid) {
+        const plural = validation.missingCount === 1 ? "question" : "questions";
+        showFeedback(
+          "error",
+          `Please answer every compulsory question before booking. (${validation.missingCount} ${plural} still missing.)`,
+          false,
+          "All Questions Are Required"
+        );
         const firstInvalid = contactForm.querySelector('[aria-invalid="true"]');
         if (firstInvalid instanceof HTMLElement) {
-          firstInvalid.focus();
+          firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+          firstInvalid.focus({ preventScroll: true });
         }
         return;
       }

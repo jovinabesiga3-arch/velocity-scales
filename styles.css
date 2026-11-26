@@ -1088,9 +1088,14 @@ select {
 @media (min-width: 600px) {
   .form-row-2 .form-label {
     min-height: 38px;
-    display: flex;
-    align-items: flex-end;
+    display: block;
+    align-content: end;
   }
+}
+
+.required-mark {
+  color: var(--accent-cyan);
+  font-weight: 700;
 }
 
 .form-input,
