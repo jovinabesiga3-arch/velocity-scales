@@ -1012,6 +1012,12 @@ select {
   flex-shrink: 0;
 }
 
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .cta-details {
   margin: 0;
   padding-top: 20px;
@@ -1158,6 +1164,10 @@ select {
   line-height: 1.5;
 }
 
+.form-feedback p {
+  margin: 0;
+}
+
 .form-feedback[hidden] {
   display: none;
 }
@@ -1174,12 +1184,29 @@ select {
   color: #fee2e2;
 }
 
+.form-feedback--declined {
+  background-color: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: var(--text-secondary);
+}
+
+.form-feedback .form-feedback-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.form-feedback-action {
+  margin-top: 12px;
+}
+
 /* ==========================================================================
    10. Footer
    ========================================================================== */
 .site-footer {
   border-top: 1px solid var(--border-subtle);
-  padding-block: 40px 88px;
+  padding-block: 40px 48px;
   background-color: #080d19;
 }
 
@@ -1235,7 +1262,7 @@ select {
   color: var(--accent-cyan);
 }
 
-.footer-whatsapp-link {
+.footer-cta-link {
   color: var(--accent-cyan);
   font-weight: 600;
 }
@@ -1251,53 +1278,6 @@ select {
   border-top: 1px solid var(--border-subtle);
   font-size: 13px;
   color: var(--text-muted);
-}
-
-/* ==========================================================================
-   Floating WhatsApp Button (Bottom Right on All Screens)
-   ========================================================================== */
-.floating-whatsapp {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 90;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: 52px;
-  padding: 0 15px;
-  border-radius: 999px;
-  background-color: var(--whatsapp-bg);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  transition:
-    transform 180ms var(--ease-out-expo),
-    background-color 160ms ease;
-}
-
-.floating-whatsapp:hover {
-  background-color: var(--whatsapp-bg-hover);
-  transform: translateY(-2px);
-}
-
-.floating-whatsapp-label {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .floating-whatsapp {
-    right: 24px;
-    bottom: 24px;
-    padding: 0 20px;
-  }
-
-  .floating-whatsapp-label {
-    display: inline;
-  }
 }
 
 /* ==========================================================================
@@ -1325,8 +1305,7 @@ select {
   .reveal,
   .btn,
   .card,
-  .faq-icon,
-  .floating-whatsapp {
+  .faq-icon {
     transition: none;
   }
 }

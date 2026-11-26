@@ -92,6 +92,7 @@
 
   if (contactForm instanceof HTMLFormElement && formFeedback) {
     const nameInput = document.getElementById("contact-name");
+    const emailInput = document.getElementById("contact-email");
     const whatsappInput = document.getElementById("contact-whatsapp");
     const businessInput = document.getElementById("contact-business");
     const businessTypeSelect = document.getElementById("contact-business-type");
@@ -128,10 +129,90 @@
       }
     };
 
-    const showFeedback = (type, text) => {
+    const qualificationStatusInput = document.getElementById("qualification-status");
+    const qualificationNoteInput = document.getElementById("qualification-note");
+
+    const showFeedback = (type, text, showCalendly = false, title = "") => {
       formFeedback.className = `form-feedback form-feedback--${type}`;
-      formFeedback.textContent = text;
+      formFeedback.replaceChildren();
+
+      if (title) {
+        const titleEl = document.createElement("p");
+        titleEl.className = "form-feedback-title";
+        titleEl.textContent = title;
+        formFeedback.appendChild(titleEl);
+      }
+
+      const messageEl = document.createElement("p");
+      messageEl.textContent = text;
+      formFeedback.appendChild(messageEl);
+
+      if (showCalendly) {
+        const actionWrap = document.createElement("div");
+        actionWrap.className = "form-feedback-action";
+
+        const calendlyLink = document.createElement("a");
+        calendlyLink.href = "https://calendly.com/jovinabesiga/30min";
+        calendlyLink.target = "_blank";
+        calendlyLink.rel = "noopener noreferrer";
+        calendlyLink.className = "btn btn--primary btn--full";
+        calendlyLink.textContent = "Book Your Free Strategy Call";
+
+        actionWrap.appendChild(calendlyLink);
+        formFeedback.appendChild(actionWrap);
+      }
+
       formFeedback.hidden = false;
+    };
+
+    const evaluateQualification = () => {
+      const reasons = [];
+      const revenue = revenueSelect instanceof HTMLSelectElement ? revenueSelect.value : "";
+      const authority = authoritySelect instanceof HTMLSelectElement ? authoritySelect.value : "";
+      const timeline = timelineSelect instanceof HTMLSelectElement ? timelineSelect.value : "";
+
+      if (revenue === "Pre revenue / Starting out" || revenue === "Under $1,000") {
+        reasons.push("Monthly revenue is currently below $1,000");
+      }
+
+      if (authority === "No / I'd need to check with someone") {
+        reasons.push("Applicant is not the primary decision maker");
+      }
+
+      if (timeline === "Just exploring") {
+        reasons.push("Timeline is set to just exploring");
+      }
+
+      if (reasons.length === 0) {
+        return {
+          qualified: true,
+          note: "Meets qualification criteria",
+          title: "You Qualify for a Free Strategy Call",
+          message:
+            "Thank you for applying. Based on your numbers, we look like a strong fit. Tap below to pick your time on Calendly right now.",
+        };
+      }
+
+      let message =
+        "Thank you for applying to Velocity Scales. Based on your current answers, we are not the right fit for a 1-on-1 strategy call right now, and we appreciate your interest as your business grows.";
+
+      if (revenue === "Pre revenue / Starting out" || revenue === "Under $1,000") {
+        message =
+          "Thank you for applying to Velocity Scales. Based on your current monthly revenue, paid Meta Ads management is not the most profitable next step right now. We work best with businesses generating at least $1,000 per month so ad spend and management fees deliver a strong return. We wish you every success and look forward to hearing from you once you reach that stage.";
+      } else if (authority === "No / I'd need to check with someone") {
+        message =
+          "Thank you for applying to Velocity Scales. Right now, our 1-on-1 strategy calls are reserved directly for business owners and primary decision makers. Please feel free to reapply together with your decision maker whenever you are ready to move forward.";
+      } else if (timeline === "Just exploring") {
+        message =
+          "Thank you for your interest in Velocity Scales. Our strategy calls are reserved for businesses ready to launch and scale campaigns within the next 30 days. Whenever you are ready to get started, please come back and reapply.";
+      }
+
+      return {
+        qualified: false,
+        note: reasons.join("; "),
+        title: "Thank You for Applying",
+        message,
+      };
     };
 
     const validateForm = () => {
@@ -143,6 +224,17 @@
           valid = false;
         } else {
           setFieldError(nameInput, "error-name", "");
+        }
+      }
+
+      if (emailInput instanceof HTMLInputElement) {
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailValue)) {
+          setFieldError(emailInput, "error-email", "Please enter a valid email address.");
+          valid = false;
+        } else {
+          setFieldError(emailInput, "error-email", "");
         }
       }
 
@@ -179,7 +271,7 @@
       return valid;
     };
 
-    [nameInput, whatsappInput, businessInput].forEach((input) => {
+    [nameInput, emailInput, whatsappInput, businessInput].forEach((input) => {
       if (input instanceof HTMLInputElement) {
         input.addEventListener("input", () => {
           if (input.getAttribute("aria-invalid") === "true") {
@@ -211,10 +303,18 @@
         return;
       }
 
-      const originalLabel = submitBtn ? submitBtn.textContent : "Get My Free Strategy Plan";
+      const originalLabel = submitBtn ? submitBtn.textContent : "Book Your Free Strategy Call";
       if (submitBtn instanceof HTMLButtonElement) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Submitting...";
+      }
+
+      const result = evaluateQualification();
+      if (qualificationStatusInput instanceof HTMLInputElement) {
+        qualificationStatusInput.value = result.qualified ? "Qualified" : "Politely Declined";
+      }
+      if (qualificationNoteInput instanceof HTMLInputElement) {
+        qualificationNoteInput.value = result.note;
       }
 
       try {
@@ -237,19 +337,20 @@
         }
 
         contactForm.reset();
-        showFeedback(
-          "success",
-          "Application received! We are reviewing your business details and will message you on WhatsApp shortly to confirm your free strategy call."
-        );
+        if (result.qualified) {
+          showFeedback("success", result.message, true, result.title);
+        } else {
+          showFeedback("declined", result.message, false, result.title);
+        }
       } catch (_err) {
         showFeedback(
           "error",
-          "We could not submit the form from this preview environment. For an instant reply, tap the WhatsApp button to message us directly."
+          "We could not submit the form from this preview environment. Please submit on the live site to complete your application."
         );
       } finally {
         if (submitBtn instanceof HTMLButtonElement) {
           submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel || "Get My Free Strategy Plan";
+          submitBtn.textContent = originalLabel || "Book Your Free Strategy Call";
         }
       }
     });
