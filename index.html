@@ -645,12 +645,12 @@
               <p class="section-kicker">Free Growth Plan</p>
               <h2 class="cta-title">Ready to get more clients?</h2>
               <p class="cta-copy">
-                Complete the 45 second application on this page or message us directly on WhatsApp. If we are confident we can bring you profitable leads, we will map out your Meta Ads plan before we even get on the call.
+                Complete the quick application on this page or message us directly on WhatsApp. If we are confident we can bring you profitable leads, we will map out your Meta Ads plan before we even get on the call.
               </p>
 
               <ul class="cta-benefits">
                 <li>Custom Facebook &amp; Instagram ad angles built for your offer</li>
-                <li>Honest ad budget and expected lead flow breakdown</li>
+                <li>Honest growth roadmap and expected lead flow breakdown</li>
                 <li>Direct WhatsApp booking system with zero obligation</li>
               </ul>
 
@@ -677,7 +677,7 @@
           <div class="form-card reveal">
             <h3 class="form-title">Apply for Your Free Strategy Plan</h3>
             <p class="form-subtitle">
-              Answer 6 quick questions so we can prepare real ad numbers before we speak.
+              Answer a few quick questions so we can prepare real growth numbers before we speak.
             </p>
 
             <form
@@ -755,8 +755,20 @@
                 </div>
               </div>
 
-              <!-- 3. Biggest challenge & 4. Monthly budget -->
+              <!-- 3. Operating duration & Biggest challenge -->
               <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-operating">How long have you been operating?</label>
+                  <select class="form-select" id="contact-operating" name="operating_time" required>
+                    <option value="" disabled selected>Select duration...</option>
+                    <option value="Under 6 months">Under 6 months</option>
+                    <option value="6 months to 1 year">6 months to 1 year</option>
+                    <option value="1 to 3 years">1 to 3 years</option>
+                    <option value="3+ years">3+ years</option>
+                  </select>
+                  <p class="field-error" id="error-operating" hidden></p>
+                </div>
+
                 <div class="form-group">
                   <label class="form-label" for="contact-challenge">What’s your biggest challenge right now?</label>
                   <select class="form-select" id="contact-challenge" name="biggest_challenge" required>
@@ -768,21 +780,64 @@
                   </select>
                   <p class="field-error" id="error-challenge" hidden></p>
                 </div>
+              </div>
+
+              <!-- 4. Monthly revenue & Average client spend -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-revenue">What’s your monthly revenue?</label>
+                  <select class="form-select" id="contact-revenue" name="monthly_revenue" required>
+                    <option value="" disabled selected>Select monthly revenue...</option>
+                    <option value="Pre revenue / Starting out">Pre revenue / Starting out</option>
+                    <option value="Under $1,000">Under $1,000</option>
+                    <option value="$1,000 to $5,000">$1,000 to $5,000</option>
+                    <option value="$5,000 to $15,000">$5,000 to $15,000</option>
+                    <option value="$15,000+">$15,000+</option>
+                  </select>
+                  <p class="field-error" id="error-revenue" hidden></p>
+                </div>
 
                 <div class="form-group">
-                  <label class="form-label" for="contact-budget">What’s your monthly budget for ads?</label>
-                  <select class="form-select" id="contact-budget" name="monthly_budget" required>
-                    <option value="" disabled selected>Select monthly budget...</option>
-                    <option value="Under $200">Under $200</option>
-                    <option value="$200 to $500">$200 to $500</option>
-                    <option value="$500 to $1000">$500 to $1000</option>
-                    <option value="$1000+">$1000+</option>
+                  <label class="form-label" for="contact-client-spend">What’s the average spend of one client?</label>
+                  <select class="form-select" id="contact-client-spend" name="average_client_spend" required>
+                    <option value="" disabled selected>Select average spend...</option>
+                    <option value="Under $25">Under $25</option>
+                    <option value="$25 to $100">$25 to $100</option>
+                    <option value="$100 to $500">$100 to $500</option>
+                    <option value="$500 to $2,000">$500 to $2,000</option>
+                    <option value="$2,000+">$2,000+</option>
                   </select>
-                  <p class="field-error" id="error-budget" hidden></p>
+                  <p class="field-error" id="error-client-spend" hidden></p>
                 </div>
               </div>
 
-              <!-- 5. Decision maker & 6. Start timeline -->
+              <!-- 5. Monthly revenue goal & Previous agency experience -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label" for="contact-revenue-goal">What’s the goal for your monthly revenue?</label>
+                  <select class="form-select" id="contact-revenue-goal" name="revenue_goal" required>
+                    <option value="" disabled selected>Select revenue goal...</option>
+                    <option value="$1,000 to $3,000">$1,000 to $3,000</option>
+                    <option value="$3,000 to $10,000">$3,000 to $10,000</option>
+                    <option value="$10,000 to $25,000">$10,000 to $25,000</option>
+                    <option value="$25,000 to $50,000">$25,000 to $50,000</option>
+                    <option value="$50,000+">$50,000+</option>
+                  </select>
+                  <p class="field-error" id="error-revenue-goal" hidden></p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-agency-history">Have you worked with a marketing agency before?</label>
+                  <select class="form-select" id="contact-agency-history" name="worked_with_agency" required>
+                    <option value="" disabled selected>Select an option...</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                  <p class="field-error" id="error-agency-history" hidden></p>
+                </div>
+              </div>
+
+              <!-- 6. Decision maker & Start timeline -->
               <div class="form-row-2">
                 <div class="form-group">
                   <label class="form-label" for="contact-authority">Are you the owner or decision maker?</label>

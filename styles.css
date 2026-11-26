@@ -1075,7 +1075,16 @@ select {
   margin-bottom: 7px;
   font-size: 13.5px;
   font-weight: 500;
+  line-height: 1.35;
   color: var(--text-secondary);
+}
+
+@media (min-width: 600px) {
+  .form-row-2 .form-label {
+    min-height: 38px;
+    display: flex;
+    align-items: flex-end;
+  }
 }
 
 .form-input,

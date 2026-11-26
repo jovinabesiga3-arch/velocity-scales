@@ -95,16 +95,24 @@
     const whatsappInput = document.getElementById("contact-whatsapp");
     const businessInput = document.getElementById("contact-business");
     const businessTypeSelect = document.getElementById("contact-business-type");
+    const operatingSelect = document.getElementById("contact-operating");
     const challengeSelect = document.getElementById("contact-challenge");
-    const budgetSelect = document.getElementById("contact-budget");
+    const revenueSelect = document.getElementById("contact-revenue");
+    const clientSpendSelect = document.getElementById("contact-client-spend");
+    const revenueGoalSelect = document.getElementById("contact-revenue-goal");
+    const agencyHistorySelect = document.getElementById("contact-agency-history");
     const authoritySelect = document.getElementById("contact-authority");
     const timelineSelect = document.getElementById("contact-timeline");
     const submitBtn = document.getElementById("contact-submit");
 
     const selectFields = [
       { el: businessTypeSelect, errorId: "error-business-type", msg: "Please select your business type." },
+      { el: operatingSelect, errorId: "error-operating", msg: "Please select how long you have been operating." },
       { el: challengeSelect, errorId: "error-challenge", msg: "Please select your main challenge." },
-      { el: budgetSelect, errorId: "error-budget", msg: "Please select your monthly ad budget." },
+      { el: revenueSelect, errorId: "error-revenue", msg: "Please select your current monthly revenue." },
+      { el: clientSpendSelect, errorId: "error-client-spend", msg: "Please select the average spend of one client." },
+      { el: revenueGoalSelect, errorId: "error-revenue-goal", msg: "Please select your monthly revenue goal." },
+      { el: agencyHistorySelect, errorId: "error-agency-history", msg: "Please let us know if you have worked with an agency before." },
       { el: authoritySelect, errorId: "error-authority", msg: "Please let us know if you are the decision maker." },
       { el: timelineSelect, errorId: "error-timeline", msg: "Please select when you want to start." },
     ];
