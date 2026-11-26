@@ -1206,6 +1206,21 @@ select {
   margin-top: 12px;
 }
 
+.calendly-embed-wrap {
+  margin-top: 14px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background-color: #ffffff;
+}
+
+.calendly-embed {
+  display: block;
+  width: 100%;
+  height: 620px;
+  border: 0;
+}
+
 /* ==========================================================================
    10. Footer
    ========================================================================== */

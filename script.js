@@ -132,7 +132,7 @@
     const qualificationStatusInput = document.getElementById("qualification-status");
     const qualificationNoteInput = document.getElementById("qualification-note");
 
-    const showFeedback = (type, text, showCalendly = false, title = "") => {
+    const showFeedback = (type, text, showCalendly = false, title = "", applicant = {}) => {
       formFeedback.className = `form-feedback form-feedback--${type}`;
       formFeedback.replaceChildren();
 
@@ -148,15 +148,32 @@
       formFeedback.appendChild(messageEl);
 
       if (showCalendly) {
+        const params = new URLSearchParams({ hide_gdpr_banner: "1" });
+        if (applicant.name) params.set("name", applicant.name);
+        if (applicant.email) params.set("email", applicant.email);
+
+        const calendlyUrl = `https://calendly.com/jovinabesiga/30min?${params.toString()}`;
+
+        const embedWrap = document.createElement("div");
+        embedWrap.className = "calendly-embed-wrap";
+
+        const iframe = document.createElement("iframe");
+        iframe.className = "calendly-embed";
+        iframe.src = calendlyUrl;
+        iframe.title = "Book Your Free Strategy Call on Calendly";
+        iframe.loading = "lazy";
+        embedWrap.appendChild(iframe);
+        formFeedback.appendChild(embedWrap);
+
         const actionWrap = document.createElement("div");
         actionWrap.className = "form-feedback-action";
 
         const calendlyLink = document.createElement("a");
-        calendlyLink.href = "https://calendly.com/jovinabesiga/30min";
+        calendlyLink.href = calendlyUrl;
         calendlyLink.target = "_blank";
         calendlyLink.rel = "noopener noreferrer";
         calendlyLink.className = "btn btn--primary btn--full";
-        calendlyLink.textContent = "Book Your Free Strategy Call on Calendly";
+        calendlyLink.textContent = "Open Calendly in New Tab";
 
         actionWrap.appendChild(calendlyLink);
         formFeedback.appendChild(actionWrap);
@@ -166,52 +183,26 @@
     };
 
     const evaluateQualification = () => {
-      const reasons = [];
       const revenue = revenueSelect instanceof HTMLSelectElement ? revenueSelect.value : "";
-      const authority = authoritySelect instanceof HTMLSelectElement ? authoritySelect.value : "";
-      const timeline = timelineSelect instanceof HTMLSelectElement ? timelineSelect.value : "";
+      const isBelowThousand =
+        revenue === "Pre revenue / Starting out" || revenue === "Under $1,000";
 
-      if (revenue === "Pre revenue / Starting out" || revenue === "Under $1,000") {
-        reasons.push("Monthly revenue is currently below $1,000");
-      }
-
-      if (authority === "No / I'd need to check with someone") {
-        reasons.push("Applicant is not the primary decision maker");
-      }
-
-      if (timeline === "Just exploring") {
-        reasons.push("Timeline is set to just exploring");
-      }
-
-      if (reasons.length === 0) {
+      if (!isBelowThousand) {
         return {
           qualified: true,
-          note: "Meets qualification criteria",
+          note: `Qualified (${revenue || "$1,000+ monthly revenue"})`,
           title: "You Qualify for a Free Strategy Call",
           message:
-            "Thank you for applying. Based on your numbers, we look like a strong fit. Tap below to pick your time on Calendly right now.",
+            "Thank you for applying. Select a date and time on our calendar below to confirm your 30 minute strategy call.",
         };
-      }
-
-      let message =
-        "Thank you for applying to Velocity Scales. Based on your current answers, we are not the right fit for a 1-on-1 strategy call right now, and we appreciate your interest as your business grows.";
-
-      if (revenue === "Pre revenue / Starting out" || revenue === "Under $1,000") {
-        message =
-          "Thank you for applying to Velocity Scales. Based on your current monthly revenue, paid Meta Ads management is not the most profitable next step right now. We work best with businesses generating at least $1,000 per month so ad spend and management fees deliver a strong return. We wish you every success and look forward to hearing from you once you reach that stage.";
-      } else if (authority === "No / I'd need to check with someone") {
-        message =
-          "Thank you for applying to Velocity Scales. Right now, our 1-on-1 strategy calls are reserved directly for business owners and primary decision makers. Please feel free to reapply together with your decision maker whenever you are ready to move forward.";
-      } else if (timeline === "Just exploring") {
-        message =
-          "Thank you for your interest in Velocity Scales. Our strategy calls are reserved for businesses ready to launch and scale campaigns within the next 30 days. Whenever you are ready to get started, please come back and reapply.";
       }
 
       return {
         qualified: false,
-        note: reasons.join("; "),
+        note: `Monthly revenue is below $1,000 (${revenue})`,
         title: "Thank You for Applying",
-        message,
+        message:
+          "Thank you for applying to Velocity Scales. Based on your current monthly revenue, paid Meta Ads management is not the most profitable next step right now. We work best with businesses generating at least $1,000 per month so ad spend and management fees deliver a strong return. We wish you every success and look forward to hearing from you once you reach that stage.",
       };
     };
 
@@ -349,6 +340,11 @@
         submitBtn.textContent = "Submitting...";
       }
 
+      const applicant = {
+        name: nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "",
+        email: emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "",
+      };
+
       const result = evaluateQualification();
       if (qualificationStatusInput instanceof HTMLInputElement) {
         qualificationStatusInput.value = result.qualified ? "Qualified" : "Politely Declined";
@@ -380,12 +376,12 @@
       } finally {
         contactForm.reset();
         if (result.qualified) {
-          showFeedback("success", result.message, true, result.title);
+          showFeedback("success", result.message, true, result.title, applicant);
         } else {
           showFeedback("declined", result.message, false, result.title);
         }
 
-        formFeedback.scrollIntoView({ behavior: "smooth", block: "center" });
+        formFeedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
         if (submitBtn instanceof HTMLButtonElement) {
           submitBtn.disabled = false;
