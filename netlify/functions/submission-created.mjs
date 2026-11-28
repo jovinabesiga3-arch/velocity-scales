@@ -33,7 +33,7 @@ function buildRejectionEmail({ name, business }) {
     "Here is what we recommend focusing on next:",
     "1. Keep building steady sales through organic social content, referrals, and repeat customers.",
     "2. Focus on your highest-margin product or service and increase your average client spend.",
-    "3. Once your monthly revenue passes $1,000 consistently, reapply anytime and we would be glad to help you scale with Meta Ads.",
+    "3. Once your monthly revenue passes $1,000 consistently, reapply anytime and we would be glad to help you scale with Meta and Google Ads.",
     "",
     "Wishing you strong growth ahead,",
     "Velocity Scales",
@@ -54,7 +54,7 @@ function buildRejectionEmail({ name, business }) {
       <ol style="padding-left: 20px;">
         <li>Keep building steady sales through organic social content, referrals, and repeat customers.</li>
         <li>Focus on your highest-margin product or service and increase your average client spend.</li>
-        <li>Once your monthly revenue passes $1,000 consistently, reapply anytime and we would be glad to help you scale with Meta Ads.</li>
+        <li>Once your monthly revenue passes $1,000 consistently, reapply anytime and we would be glad to help you scale with Meta and Google Ads.</li>
       </ol>
       <p style="margin-top: 24px;">
         Wishing you strong growth ahead,<br />

@@ -202,7 +202,7 @@
         note: `Monthly revenue is below $1,000 (${revenue})`,
         title: "Thank You for Applying",
         message:
-          "Thank you for applying to Velocity Scales. Based on your current monthly revenue, paid Meta Ads management is not the most profitable next step right now. We work best with businesses generating at least $1,000 per month so ad spend and management fees deliver a strong return. We wish you every success and look forward to hearing from you once you reach that stage.",
+          "Thank you for applying to Velocity Scales. Based on your current monthly revenue, paid Meta and Google Ads management is not the most profitable next step right now. We work best with businesses generating at least $1,000 per month so ad spend and management fees deliver a strong return. We wish you every success and look forward to hearing from you once you reach that stage.",
       };
     };
 
